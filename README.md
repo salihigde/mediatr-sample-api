@@ -8,6 +8,10 @@ Purpose of this project is to provide fully working .Net Core 3.0 API example by
 - Action Filters are used both for validation and returning common response for every action (see [ValidateModelStateAttribute](https://github.com/salihigde/mediatr-sample-api/blob/master/src/Filters/ValidateModelStateAttribute.cs) and [ApiResponseAttribute](https://github.com/salihigde/mediatr-sample-api/blob/master/src/Filters/ApiResponseAttribute.cs))
 - Mediatr Behaviors are used for having common logging in before and after handler execution (see [LoggingBehavior](https://github.com/salihigde/mediatr-sample-api/blob/master/src/Handlers/Behaviors/LoggingBehavior.cs))  
 
+## Swagger
+![Swagger](swagger.png)
+
+
 ## Getting Started
 
 ### Prerequisites
