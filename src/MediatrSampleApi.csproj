@@ -37,6 +37,7 @@
     <Folder Include="Middleware\" />
     <Folder Include="Middleware\Extensions\" />
     <Folder Include="Handlers\Behaviors\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 </Project>
 

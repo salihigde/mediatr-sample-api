@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MediatrSampleApi.Handlers.Contracts;
 using System.Collections.Generic;
+using MediatrSampleApi.Exceptions;
 
 namespace MediatrSampleApi.Controllers
 {
@@ -65,9 +66,15 @@ namespace MediatrSampleApi.Controllers
         [ProducesResponseType(typeof(ApiResponse<CustomerCreateResponse>), 201)]
         public async Task<IActionResult> CreateCustomerAsync([FromBody]CustomerRequest customer)
         {
-            var result = await mediator.Send(customer);
+            var customerExists = await mediator.Send(new DoesCustomerExistsRequest { Email = customer.Email });
+            if (customerExists)
+            {
+                throw new ValidationException("Customer already exists");
+            }
 
-            return CreatedAtAction(nameof(CreateCustomerAsync), null, result);
+            var result = await mediator.Send(customer);
+            return Created(string.Empty, result);
+            //return CreatedAtAction(nameof(CreateCustomerAsync), result);
         }
     }
 }

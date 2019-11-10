@@ -16,7 +16,7 @@ namespace MediatrSampleApi.Filters
         /// <param name="context"></param>
         public override void OnActionExecuted(ActionExecutedContext context)
         {
-            if (context.Result is OkObjectResult objectResult)
+            if (context.Result is ObjectResult objectResult)
             {
                 objectResult.Value = new ApiResponse<object>
                 {

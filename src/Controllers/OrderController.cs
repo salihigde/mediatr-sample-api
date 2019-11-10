@@ -35,7 +35,7 @@ namespace MediatrSampleApi.Controllers
         {
             var result = await mediator.Send(order);
 
-            return CreatedAtAction(nameof(CreateOrderAsync), null, result);
+            return Created(string.Empty, result);
         }
     }
 }

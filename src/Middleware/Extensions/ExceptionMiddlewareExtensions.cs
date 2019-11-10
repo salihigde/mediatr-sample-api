@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using MediatrSampleApi.Exceptions;
 using MediatrSampleApi.Handlers.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -27,13 +28,24 @@ namespace MediatrSampleApi.Middleware.Extensions
                 var error = new Dictionary<string, object>();
                 error.Add("errorDetails", exception.StackTrace);
                 error.Add("errorMessage", exception.Message);
+                var jsonError = JsonConvert.SerializeObject(error);
 
-                logger.LogCritical(JsonConvert.SerializeObject(error));
+                string clientMessage;
+                if (exception is ValidationException)
+                {
+                    logger.LogError(jsonError);
+                    clientMessage = exception.Message;
+                }
+                else
+                {
+                    logger.LogCritical(jsonError);
+                    clientMessage = "An Error Occured";
+                }
 
                 var clientResponse = new ApiResponse
                 {
                     Success = false,
-                    Messages = new List<string> { "An Error Occured" }
+                    Messages = new List<string> { clientMessage }
                 };
 
                 var result = JsonConvert.SerializeObject(clientResponse);
