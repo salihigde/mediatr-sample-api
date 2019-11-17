@@ -74,7 +74,6 @@ namespace MediatrSampleApi.Controllers
 
             var result = await mediator.Send(customer);
             return Created(string.Empty, result);
-            //return CreatedAtAction(nameof(CreateCustomerAsync), result);
         }
     }
 }

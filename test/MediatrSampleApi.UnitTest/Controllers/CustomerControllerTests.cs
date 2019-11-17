@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MyTested.AspNetCore.Mvc;
+using MediatrSampleApi.Exceptions;
 
 namespace MediatrSampleApi.UnitTest.Controllers
 {
@@ -60,6 +61,41 @@ namespace MediatrSampleApi.UnitTest.Controllers
             var result = actionResult as OkObjectResult;
             result.Value.Should().BeOfType<CustomerWithOrdersResponse>();
             result.Value.Should().Be(customerWithOrders);
+        }
+
+        [TestMethod]
+        public void CreateCustomerAsync_ShouldThrowValidationException_WhenCustomerExists()
+        {
+            var customerRequest = fixture.Create<CustomerRequest>();
+
+            mockMediator.Setup(m => m.Send(It.IsAny<DoesCustomerExistsRequest>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(true);
+
+            Func<Task> createCustomerAction = async () => await customerController.CreateCustomerAsync(customerRequest);
+
+            createCustomerAction.Should().Throw<ValidationException>().WithMessage("Customer already exists");
+        }
+
+        [TestMethod]
+        public async Task CreateCustomerAsync_ShouldAddCustomer_WhenCustomerDoesNotExists()
+        {
+            var customerRequest = fixture.Create<CustomerRequest>();
+            var customerCreateResponse = fixture.Build<CustomerCreateResponse>()
+                .With(x => x.Id, Guid.NewGuid())
+                .Create();
+
+            mockMediator.Setup(m => m.Send(It.IsAny<DoesCustomerExistsRequest>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(false);
+
+            mockMediator.Setup(m => m.Send(It.IsAny<CustomerRequest>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(customerCreateResponse);
+
+            var actionResult = await customerController.CreateCustomerAsync(customerRequest);
+
+            var result = actionResult as CreatedResult;
+
+            result.Value.Should().BeOfType<CustomerCreateResponse>();
+            result.Value.Should().Be(customerCreateResponse);
         }
 
         [TestMethod]
