@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatrSampleApi.Handlers.Contracts;
-using MediatrSampleApi.Models;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using MediatrSample.Api.Models;
+using MediatrSample.Api.ViewModels;
 
-namespace MediatrSampleApi.Handlers.Command
+namespace MediatrSample.Api.Handlers.Command
 {
     /// <summary>
     /// </summary>

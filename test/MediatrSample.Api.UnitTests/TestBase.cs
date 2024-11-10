@@ -1,42 +1,43 @@
-﻿using MediatrSampleApi.Models;
+﻿using System.Reflection;
 using AutoFixture;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using MediatR;
+using MediatrSample.Api.Filters;
+using MediatrSample.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MediatrSampleApi.Filters;
-using System.Reflection;
 
-namespace MediatrSampleApi.UnitTest
+namespace MediatrSample.Api.UnitTests
 {
     public class TestBase
     {
-        protected readonly IMediator mediator;
-        protected readonly Fixture fixture;
+        protected readonly IMediator Mediator;
+        protected readonly Fixture Fixture;
 
-        public TestBase()
+        internal TestBase()
         {
             var services = new ServiceCollection();
             
             // Services
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Startup>());
             services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(ValidateModelStateAttribute));
-            }).AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Startup>(); })
-            .AddApplicationPart(Assembly.Load("MediatrSampleApi.UnitTest"));
+            }).AddApplicationPart(Assembly.Load("MediatrSampleApi.UnitTest"));
+
+            services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
             services.AddAutoMapper(typeof(Startup));
 
 
             // Database
             services.AddDbContext<ApiDbContext>((y) => y.UseInMemoryDatabase("s"), ServiceLifetime.Transient);
 
-			fixture = new Fixture();
+			Fixture = new Fixture();
 
             var sp = services.BuildServiceProvider();
 
-			mediator = sp.GetService<IMediator>();
+			Mediator = sp.GetService<IMediator>();
         }
     }
 }

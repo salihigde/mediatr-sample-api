@@ -1,5 +1,6 @@
 ﻿using System;
-namespace MediatrSampleApi.Handlers.Contracts
+
+namespace MediatrSample.Api.ViewModels
 {
     /// <summary>
     /// returned in successful customer creation

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MediatrSampleApi.Handlers.Command;
-using MediatrSampleApi.Handlers.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MediatrSampleApi.Handlers.Contracts;
 using System.Collections.Generic;
-using MediatrSampleApi.Exceptions;
+using MediatrSample.Api.Exceptions;
+using MediatrSample.Api.Handlers.Command;
+using MediatrSample.Api.Handlers.Query;
+using MediatrSample.Api.ViewModels;
 
-namespace MediatrSampleApi.Controllers
+namespace MediatrSample.Api.Controllers
 {
     /// <summary>
     /// </summary>
@@ -16,14 +16,14 @@ namespace MediatrSampleApi.Controllers
     [Route("api/[controller]")]
     public class CustomerController : Controller
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="mediator"></param>
         public CustomerController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace MediatrSampleApi.Controllers
         [Route("list")]
         public async Task<IActionResult> GetCustomersAsync()
         {
-            var result = await mediator.Send(new CustomerListRequest());
+            var result = await _mediator.Send(new CustomerListRequest());
 
             return Ok(result);
         }
@@ -51,7 +51,7 @@ namespace MediatrSampleApi.Controllers
         [Route("{customerId}/details")]
         public async Task<IActionResult> GetCustomerWithOrdersAsync([FromRoute] Guid customerId)
         {
-            var result = await mediator.Send(new CustomerWithOrdersRequest { CustomerId = customerId });
+            var result = await _mediator.Send(new CustomerWithOrdersRequest { CustomerId = customerId });
 
             return Ok(result);
         }
@@ -66,13 +66,13 @@ namespace MediatrSampleApi.Controllers
         [ProducesResponseType(typeof(ApiResponse<CustomerCreateResponse>), 201)]
         public async Task<IActionResult> CreateCustomerAsync([FromBody]CustomerRequest customer)
         {
-            var customerExists = await mediator.Send(new DoesCustomerExistsRequest { Email = customer.Email });
+            var customerExists = await _mediator.Send(new DoesCustomerExistsRequest { Email = customer.Email });
             if (customerExists)
             {
                 throw new ValidationException("Customer already exists");
             }
 
-            var result = await mediator.Send(customer);
+            var result = await _mediator.Send(customer);
             return Created(string.Empty, result);
         }
     }

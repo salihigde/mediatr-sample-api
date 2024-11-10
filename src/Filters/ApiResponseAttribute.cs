@@ -1,8 +1,8 @@
-﻿using MediatrSampleApi.Handlers.Contracts;
+﻿using MediatrSample.Api.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace MediatrSampleApi.Filters
+namespace MediatrSample.Api.Filters
 {
     /// <summary>
     /// Returns ApiResponse which is a wrapper for controllers to have

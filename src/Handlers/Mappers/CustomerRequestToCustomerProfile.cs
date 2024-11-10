@@ -1,9 +1,9 @@
 ﻿using System;
-using MediatrSampleApi.Models;
-using MediatrSampleApi.Handlers.Command;
 using AutoMapper;
+using MediatrSample.Api.Handlers.Command;
+using MediatrSample.Api.Models;
 
-namespace MediatrSampleApi.Handlers.Mappers
+namespace MediatrSample.Api.Handlers.Mappers
 {
     /// <summary>
     /// </summary>

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace MediatrSampleApi.Exceptions
+namespace MediatrSample.Api.Exceptions
 {
     /// <summary>
     /// Exception with user friendly message for handling client validation errors

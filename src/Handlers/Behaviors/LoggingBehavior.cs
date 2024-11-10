@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace MediatrSampleApi.Handlers.Behaviors
+namespace MediatrSample.Api.Handlers.Behaviors
 {
     /// <summary>
     /// Common logging for Mediatr to log before and after handler execution
@@ -30,7 +30,7 @@ namespace MediatrSampleApi.Handlers.Behaviors
         /// <param name="cancellationToken"></param>
         /// <param name="next"></param>
         /// <returns></returns>
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             logger.LogInformation($"Handling {request.GetType().Name}");
 

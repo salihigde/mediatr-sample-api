@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace MediatrSampleApi
+namespace MediatrSample.Api
 {
     /// <summary>
     /// </summary>

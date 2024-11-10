@@ -1,9 +1,9 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatrSampleApi", "src\MediatrSampleApi.csproj", "{A4127D40-7765-4FFD-86BB-E6FB99BFB4AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatrSample.Api", "src\MediatrSample.Api.csproj", "{A4127D40-7765-4FFD-86BB-E6FB99BFB4AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatrSampleApi.UnitTest", "test\MediatrSampleApi.UnitTest\MediatrSampleApi.UnitTest.csproj", "{E7CCC780-2C4C-470F-8617-B5CDF280A52F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatrSample.Api.UnitTests", "test\MediatrSample.Api.UnitTests\MediatrSample.Api.UnitTests.csproj", "{E7CCC780-2C4C-470F-8617-B5CDF280A52F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

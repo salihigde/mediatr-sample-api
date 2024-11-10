@@ -1,8 +1,8 @@
-﻿using MediatrSampleApi.Handlers.Contracts;
-using MediatrSampleApi.Models;
-using AutoMapper;
+﻿using AutoMapper;
+using MediatrSample.Api.Models;
+using MediatrSample.Api.ViewModels;
 
-namespace MediatrSampleApi.Handlers.Mappers
+namespace MediatrSample.Api.Handlers.Mappers
 {
     /// <summary>
     /// </summary>

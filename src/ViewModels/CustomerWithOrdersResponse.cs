@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MediatrSampleApi.Handlers.Contracts
+namespace MediatrSample.Api.ViewModels
 {
     /// <summary>
     /// customer with details

@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatrSampleApi.Handlers.Contracts;
-using MediatrSampleApi.Models;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using MediatrSample.Api.Models;
+using MediatrSample.Api.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace MediatrSampleApi.Handlers.Query
+namespace MediatrSample.Api.Handlers.Query
 {
     /// <summary>
     /// </summary>

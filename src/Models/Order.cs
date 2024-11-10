@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MediatrSampleApi.Models
+namespace MediatrSample.Api.Models
 {
     /// <summary>
     /// </summary>

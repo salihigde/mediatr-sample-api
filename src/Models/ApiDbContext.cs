@@ -1,57 +1,63 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace MediatrSampleApi.Models
+namespace MediatrSample.Api.Models;
+
+/// <summary>
+/// DbContext for the API
+/// </summary>
+public class ApiDbContext : DbContext
 {
     /// <summary>
+    /// Initializes a new instance of <see cref="ApiDbContext"/>.
     /// </summary>
-    public class ApiDbContext : DbContext
+    public ApiDbContext(DbContextOptions<ApiDbContext> dbContextOptions)
+        : base(dbContextOptions)
     {
-        /// <summary>
-        /// </summary>
-        public ApiDbContext(DbContextOptions<ApiDbContext> dbContextOptions)
-            : base(dbContextOptions)
+    }
+
+    /// <summary>
+    /// Gets or sets the Customers DbSet.
+    /// </summary>
+    public DbSet<Customer> Customers { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Orders DbSet.
+    /// </summary>
+    public DbSet<Order> Orders { get; set; }
+
+    /// <summary>
+    /// Configures the model.
+    /// </summary>
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        // Seeding initial data
+        var customerId = Guid.NewGuid();
+        modelBuilder.Entity<Customer>().HasData(new Customer
         {
-        }
+            Id = customerId,
+            Name = "Salih Igde",
+            Email = "salihigde@gmail.com",
+            CreatedDate = DateTime.UtcNow // Use UTC time for consistency
+        });
 
-        /// <summary>
-        /// </summary>
-        public DbSet<Customer> Customers { get; set; }
-
-        /// <summary>
-        /// </summary>
-        public DbSet<Order> Orders { get; set; }
-
-        /// <summary>
-        /// </summary>
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-			base.OnModelCreating(modelBuilder);
-
-            var customerId = Guid.NewGuid();
-            modelBuilder.Entity<Customer>().HasData(new Customer
-            {
-                Id = customerId,
-                Name = "Salih Igde",
-                Email = "salihigde@gmail.com",
-                CreatedDate = DateTime.Now
-            });
-
-            modelBuilder.Entity<Order>().HasData(new Order
+        modelBuilder.Entity<Order>().HasData(
+            new Order
             {
                 Id = Guid.NewGuid(),
                 CustomerId = customerId,
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTime.UtcNow, // Use UTC time for consistency
                 Price = 1000
-            });
-
-            modelBuilder.Entity<Order>().HasData(new Order
+            },
+            new Order
             {
                 Id = Guid.NewGuid(),
                 CustomerId = customerId,
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTime.UtcNow, // Use UTC time for consistency
                 Price = 1200
-            });
-        }
-	}
+            }
+        );
+    }
 }

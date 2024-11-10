@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using MediatrSampleApi.Handlers.Command;
 using MediatR;
+using MediatrSample.Api.Handlers.Command;
+using MediatrSample.Api.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using MediatrSampleApi.Handlers.Contracts;
 
 namespace MediatrSampleApi.Controllers
 {
@@ -13,14 +13,14 @@ namespace MediatrSampleApi.Controllers
     [Route("api/[controller]")]
     public class OrderController : Controller
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="mediator"></param>
         public OrderController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace MediatrSampleApi.Controllers
         [ProducesResponseType(typeof(ApiResponse<OrderCreateResponse>), 201)]
         public async Task<IActionResult> CreateOrderAsync([FromBody]OrderRequest order)
         {
-            var result = await mediator.Send(order);
+            var result = await _mediator.Send(order);
 
             return Created(string.Empty, result);
         }

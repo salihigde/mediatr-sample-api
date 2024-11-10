@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
-using MediatrSampleApi.Models;
+using MediatrSample.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MediatrSampleApi.Handlers.Query
+namespace MediatrSample.Api.Handlers.Query
 {
     /// <summary>
     /// Gets Email to find if customer exists

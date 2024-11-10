@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MediatrSampleApi.Migrations
+namespace MediatrSample.Api.Migrations
 {
     /// <summary>
     /// </summary>

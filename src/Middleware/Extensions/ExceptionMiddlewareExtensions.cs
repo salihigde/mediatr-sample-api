@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using MediatrSampleApi.Exceptions;
-using MediatrSampleApi.Handlers.Contracts;
+using System.Text.Json;
+using MediatrSample.Api.Exceptions;
+using MediatrSample.Api.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
-namespace MediatrSampleApi.Middleware.Extensions
+namespace MediatrSample.Api.Middleware.Extensions
 {
     /// <summary>
     /// Extension method for handling exceptions in centralized location
@@ -28,7 +27,7 @@ namespace MediatrSampleApi.Middleware.Extensions
                 var error = new Dictionary<string, object>();
                 error.Add("errorDetails", exception.StackTrace);
                 error.Add("errorMessage", exception.Message);
-                var jsonError = JsonConvert.SerializeObject(error);
+                var jsonError = JsonSerializer.Serialize(error);
 
                 string clientMessage;
                 if (exception is ValidationException)
@@ -45,10 +44,10 @@ namespace MediatrSampleApi.Middleware.Extensions
                 var clientResponse = new ApiResponse
                 {
                     Success = false,
-                    Messages = new List<string> { clientMessage }
+                    Messages = [clientMessage]
                 };
 
-                var result = JsonConvert.SerializeObject(clientResponse);
+                var result = JsonSerializer.Serialize(clientResponse);
 
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 context.Response.ContentType = "application/json";
